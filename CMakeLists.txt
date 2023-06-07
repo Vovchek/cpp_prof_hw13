@@ -119,7 +119,10 @@ add_custom_target(${PROJECT_NAME}_test
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+include(GoogleTest)               # run ..\CMake\share\cmake-X.YY\Modules\GoogleTest.cmake
+gtest_discover_tests(test_${PROJECT_NAME})  # discover tests by asking the compiled test executable to enumerate its tests
+
+install(TARGETS ${PROJECT_NAME} test_${PROJECT_NAME} RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
